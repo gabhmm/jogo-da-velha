@@ -15,35 +15,52 @@ const HEARTBEAT_INTERVAL = parseInt(process.env.HEARTBEAT_INTERVAL) || 30000;
 
 // Servidor HTTP para servir o Frontend e o WebSocket
 const server = http.createServer((req, res) => {
+  // Remove query strings da URL (ex: /style.css?v=1 -> /style.css)
+  const parsedUrl = new URL(req.url, `http://${req.headers.host}`);
+  let pathname = parsedUrl.pathname;
+
   // Traduz a URL para o caminho do arquivo
-  let filePath = req.url === '/' 
+  let filePath = pathname === '/' 
     ? path.join(__dirname, '../client/index.html') 
-    : path.join(__dirname, '../client', req.url);
+    : path.join(__dirname, '../client', pathname);
 
   // Determina o Content-Type baseado na extensão
-  const extname = path.extname(filePath);
-  let contentType = 'text/html';
-  switch (extname) {
-    case '.js': contentType = 'text/javascript'; break;
-    case '.css': contentType = 'text/css'; break;
-    case '.json': contentType = 'application/json'; break;
-    case '.png': contentType = 'image/png'; break;
-    case '.jpg': contentType = 'image/jpg'; break;
-  }
+  const extname = path.extname(filePath).toLowerCase();
+  const mimeTypes = {
+    '.html': 'text/html',
+    '.js': 'text/javascript',
+    '.css': 'text/css',
+    '.json': 'application/json',
+    '.png': 'image/png',
+    '.jpg': 'image/jpg',
+    '.gif': 'image/gif',
+    '.svg': 'image/svg+xml',
+    '.wav': 'audio/wav',
+    '.mp4': 'video/mp4',
+    '.woff': 'application/font-woff',
+    '.ttf': 'application/font-ttf',
+    '.eot': 'application/vnd.ms-fontobject',
+    '.otf': 'application/font-otf',
+    '.wasm': 'application/wasm'
+  };
 
-  // Tenta ler o arquivo
+  const contentType = mimeTypes[extname] || 'application/octet-stream';
+
   fs.readFile(filePath, (error, content) => {
     if (error) {
       if (error.code === 'ENOENT') {
+        console.error(`[Server] 404: ${filePath}`);
         res.writeHead(404);
         res.end('Arquivo não encontrado');
       } else {
+        console.error(`[Server] 500: ${error.code} ao ler ${filePath}`);
         res.writeHead(500);
         res.end(`Erro no servidor: ${error.code}`);
       }
     } else {
+      console.log(`[Server] Servindo: ${pathname} (${contentType})`);
       res.writeHead(200, { 'Content-Type': contentType });
-      res.end(content, 'utf-8');
+      res.end(content);
     }
   });
 });
