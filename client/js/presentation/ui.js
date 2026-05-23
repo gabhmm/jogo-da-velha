@@ -11,6 +11,8 @@ class UI {
         this.lobbyMessage = document.getElementById('lobbyMessage');
         this.playerSymbol = document.getElementById('playerSymbol');
         this.roomCode = document.getElementById('roomCode');
+        this.playerXName = document.getElementById('playerXName');
+        this.playerOName = document.getElementById('playerOName');
         this.cells = document.querySelectorAll('.cell');
     }
 
@@ -27,6 +29,11 @@ class UI {
     setRoomInfo(roomId, symbol) {
         this.roomCode.innerText = `Sala: #${roomId}`;
         this.playerSymbol.innerText = `Símbolo: ${symbol}`;
+    }
+
+    setPlayers(players) {
+        this.playerXName.innerText = `X: ${players['X'] || 'Aguardando...'}`;
+        this.playerOName.innerText = `O: ${players['O'] || 'Aguardando...'}`;
     }
 
     updateStatus(message, isError = false) {

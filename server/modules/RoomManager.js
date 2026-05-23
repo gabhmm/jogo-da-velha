@@ -11,14 +11,18 @@ class RoomManager {
 
   /**
    * Cria uma nova sala com um ID único de 6 caracteres.
+   * @param {string} playerId
+   * @param {string} playerName
    * @returns {string} O ID da sala criada.
    */
-  createRoom() {
+  createRoom(playerId, playerName) {
     const roomId = Math.random().toString(36).substring(2, 8).toUpperCase();
     if (this.rooms.has(roomId)) {
-      return this.createRoom(); // Recursão em caso de colisão rara
+      return this.createRoom(playerId, playerName); // Recursão em caso de colisão rara
     }
-    this.rooms.set(roomId, new GameManager());
+    const game = new GameManager();
+    game.addPlayer(playerId, playerName);
+    this.rooms.set(roomId, game);
     return roomId;
   }
 
@@ -26,13 +30,14 @@ class RoomManager {
    * Adiciona um jogador a uma sala.
    * @param {string} roomId
    * @param {string} playerId
+   * @param {string} playerName
    * @returns {Object|null} { symbol, game } ou null se a sala não existir ou estiver cheia.
    */
-  joinRoom(roomId, playerId) {
+  joinRoom(roomId, playerId, playerName) {
     const game = this.rooms.get(roomId);
     if (!game) return null;
 
-    const symbol = game.addPlayer(playerId);
+    const symbol = game.addPlayer(playerId, playerName);
     if (!symbol) return null;
 
     return { symbol, game };

@@ -30,13 +30,25 @@ class Game {
     }
 
     createRoom() {
-        socket.send('CREATE_ROOM');
+        const playerName = document.getElementById('inputPlayerName').value.trim();
+        if (!playerName) {
+            ui.updateLobbyMessage('Por favor, insira seu nome.');
+            return;
+        }
+        socket.send('CREATE_ROOM', { playerName });
     }
 
     joinRoom() {
+        const playerName = document.getElementById('inputPlayerName').value.trim();
         const roomId = document.getElementById('inputRoomId').value.toUpperCase();
+
+        if (!playerName) {
+            ui.updateLobbyMessage('Por favor, insira seu nome.');
+            return;
+        }
+
         if (roomId) {
-            socket.send('JOIN_ROOM', { roomId });
+            socket.send('JOIN_ROOM', { roomId, playerName });
         }
     }
 
@@ -60,6 +72,7 @@ class Game {
                 this.currentTurn = payload.turn;
                 ui.showGame();
                 ui.setRoomInfo(this.roomId, this.mySymbol);
+                ui.setPlayers(payload.players);
                 ui.renderBoard(payload.board);
                 this.updateStatus();
                 break;

@@ -12,6 +12,10 @@ class GameManager {
       'X': null,
       'O': null
     };
+    this.playerNames = {
+      'X': null,
+      'O': null
+    };
     this.status = 'waiting'; // waiting, playing, finished
     this.winner = null;
   }
@@ -19,14 +23,17 @@ class GameManager {
   /**
    * Associa um jogador a um símbolo.
    * @param {string} playerId ID único do socket.
+   * @param {string} playerName Nome do jogador.
    * @returns {string|null} Símbolo atribuído ('X' ou 'O').
    */
-  addPlayer(playerId) {
+  addPlayer(playerId, playerName) {
     if (!this.players['X']) {
       this.players['X'] = playerId;
+      this.playerNames['X'] = playerName;
       return 'X';
     } else if (!this.players['O']) {
       this.players['O'] = playerId;
+      this.playerNames['O'] = playerName;
       this.status = 'playing';
       return 'O';
     }

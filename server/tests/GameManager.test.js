@@ -13,18 +13,18 @@ describe('GameManager', () => {
   });
 
   test('deve adicionar jogadores e mudar status para playing', () => {
-    const s1 = game.addPlayer('p1');
+    const s1 = game.addPlayer('p1', 'Player 1');
     expect(s1).toBe('X');
     expect(game.status).toBe('waiting');
 
-    const s2 = game.addPlayer('p2');
+    const s2 = game.addPlayer('p2', 'Player 2');
     expect(s2).toBe('O');
     expect(game.status).toBe('playing');
   });
 
   test('deve alternar turnos após jogada válida', () => {
-    game.addPlayer('p1');
-    game.addPlayer('p2');
+    game.addPlayer('p1', 'Player 1');
+    game.addPlayer('p2', 'Player 2');
 
     const result = game.makeMove('p1', 0);
     expect(result.success).toBe(true);
@@ -33,8 +33,8 @@ describe('GameManager', () => {
   });
 
   test('não deve permitir jogada fora do turno', () => {
-    game.addPlayer('p1');
-    game.addPlayer('p2');
+    game.addPlayer('p1', 'Player 1');
+    game.addPlayer('p2', 'Player 2');
 
     const result = game.makeMove('p2', 0); // O tentando jogar no turno de X
     expect(result.success).toBe(false);
@@ -42,8 +42,8 @@ describe('GameManager', () => {
   });
 
   test('deve detectar fim de jogo', () => {
-    game.addPlayer('p1');
-    game.addPlayer('p2');
+    game.addPlayer('p1', 'Player 1');
+    game.addPlayer('p2', 'Player 2');
 
     game.makeMove('p1', 0); // X
     game.makeMove('p2', 3); // O

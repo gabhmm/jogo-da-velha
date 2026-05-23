@@ -38,7 +38,7 @@ class ConnectionHandler {
 
     switch (type) {
       case 'CREATE_ROOM':
-        this.handleCreateRoom(ws);
+        this.handleCreateRoom(ws, payload);
         break;
       case 'JOIN_ROOM':
         this.handleJoinRoom(ws, wss, payload);
@@ -51,15 +51,22 @@ class ConnectionHandler {
     }
   }
 
-  handleCreateRoom(ws) {
-    const roomId = RoomManager.createRoom();
+  handleCreateRoom(ws, payload) {
+    const { playerName } = payload || {};
+    if (!playerName) {
+      return this.sendError(ws, 'Nome do jogador é obrigatório.');
+    }
+    const roomId = RoomManager.createRoom(ws.id, playerName);
     ws.roomId = roomId; // Vincula o socket à sala
     this.send(ws, 'ROOM_CREATED', { roomId });
   }
 
   handleJoinRoom(ws, wss, payload) {
-    const { roomId } = payload;
-    const result = RoomManager.joinRoom(roomId, ws.id);
+    const { roomId, playerName } = payload;
+    if (!playerName) {
+      return this.sendError(ws, 'Nome do jogador é obrigatório.');
+    }
+    const result = RoomManager.joinRoom(roomId, ws.id, playerName);
 
     if (!result) {
       return this.sendError(ws, 'Sala não encontrada ou cheia.');
@@ -74,7 +81,8 @@ class ConnectionHandler {
       payload: {
         board: game.board,
         turn: game.currentTurn,
-        symbol: client.id === RoomManager.getGame(roomId).players['X'] ? 'X' : 'O'
+        symbol: client.id === game.players['X'] ? 'X' : 'O',
+        players: game.playerNames
       }
     }));
   }

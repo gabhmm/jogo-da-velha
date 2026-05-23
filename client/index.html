@@ -20,6 +20,8 @@
         <!-- Tela de Entrada -->
         <div id="lobby" class="space-y-6">
             <div class="space-y-4">
+                <input id="inputPlayerName" type="text" placeholder="Seu Nome" class="w-full bg-gray-700 border border-gray-600 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                
                 <button id="btnCreate" class="w-full py-4 bg-blue-600 hover:bg-blue-700 rounded-lg font-bold transition-all transform hover:scale-105">
                     CRIAR NOVA SALA
                 </button>
@@ -38,6 +40,11 @@
             <div class="flex justify-between items-center text-sm font-semibold mb-4">
                 <div id="playerSymbol" class="px-3 py-1 bg-blue-900 text-blue-200 rounded-full">Símbolo: ?</div>
                 <div id="roomCode" class="text-gray-400">Sala: #XXXXXX</div>
+            </div>
+
+            <div id="playersInfo" class="flex justify-around text-sm text-gray-300 mb-2">
+                <div id="playerXName">X: Aguardando...</div>
+                <div id="playerOName">O: Aguardando...</div>
             </div>
 
             <div id="status" class="text-center py-2 bg-gray-700 rounded-lg font-medium text-blue-400">
