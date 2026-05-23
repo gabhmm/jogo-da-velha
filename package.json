@@ -1,0 +1,29 @@
+{
+  "name": "jogo-da-velha",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabhmm/jogo-da-velha.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/gabhmm/jogo-da-velha/issues"
+  },
+  "homepage": "https://github.com/gabhmm/jogo-da-velha#readme",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "ws": "^8.21.0"
+  },
+  "devDependencies": {
+    "jest": "^30.4.2"
+  }
+}

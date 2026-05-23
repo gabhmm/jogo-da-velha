@@ -1,0 +1,40 @@
+/* Estilos customizados para o Jogo da Velha */
+
+.cell {
+    transition: all 0.2s ease-in-out;
+    user-select: none;
+}
+
+.cell:empty:hover {
+    background-color: rgba(59, 130, 246, 0.1);
+}
+
+/* Animação para X */
+.text-x {
+    color: #3b82f6; /* Blue-500 */
+    animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Animação para O */
+.text-o {
+    color: #10b981; /* Green-500 */
+    animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes pop {
+    0% { transform: scale(0); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Brilho de vitória */
+.winner-cell {
+    background-color: #1e3a8a !important; /* Blue-900 */
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+    border: 2px solid #3b82f6;
+}
+
+/* Feedback de turno */
+.my-turn {
+    border-color: #3b82f6;
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+}
