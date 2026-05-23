@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "node server/index.js",
-    "test": "jest"
+    "prestart": "npm run build",
+    "test": "jest",
+    "build:css": "npx tailwindcss -i ./client/css/input.css -o ./client/css/style.css --minify",
+    "watch:css": "npx tailwindcss -i ./client/css/input.css -o ./client/css/style.css --watch",
+    "build": "npm run build:css"
   },
   "repository": {
     "type": "git",
@@ -24,6 +28,8 @@
     "ws": "^8.21.0"
   },
   "devDependencies": {
-    "jest": "^30.4.2"
+    "@tailwindcss/cli": "^4.3.0",
+    "jest": "^30.4.2",
+    "tailwindcss": "^4.3.0"
   }
 }
