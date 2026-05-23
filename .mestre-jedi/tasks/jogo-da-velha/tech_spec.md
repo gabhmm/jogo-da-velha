@@ -4,7 +4,7 @@
 
 ### Estrutura de Pastas
 ```
-📦 tic-tac-toe-multiplayer
+📦 jogo-da-velha-multiplayer
  ┣ 📂 server/
  ┃ ┣ 📜 index.js               # Entry point: HTTP server + WS server
  ┃ ┣ 📂 modules/
