@@ -1,0 +1,34 @@
+# Dependências
+node_modules/
+jspm_packages/
+
+# Testes e Cobertura
+coverage/
+*.lcov
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Sistema e IDEs
+.DS_Store
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Pasta de Artefatos do Mestre Jedi (Opcional: se não quiser subir documentos de spec)
+# .mestre-jedi/tasks/
+
+# Variáveis de Ambiente
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
