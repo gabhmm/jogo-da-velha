@@ -51,6 +51,8 @@
                 Aguardando oponente...
             </div>
 
+            <div id="gameToast" class="hidden text-center py-2 rounded-lg text-sm font-medium" role="status" aria-live="polite"></div>
+
             <!-- Tabuleiro -->
             <div id="board" class="grid grid-cols-3 gap-3 bg-gray-700 p-3 rounded-xl shadow-inner border-2 border-gray-600">
                 <div data-index="0" class="cell flex items-center justify-center h-24 bg-gray-800 rounded-lg text-5xl font-bold cursor-pointer hover:bg-gray-700 transition-colors"></div>
@@ -63,6 +65,14 @@
                 <div data-index="7" class="cell flex items-center justify-center h-24 bg-gray-800 rounded-lg text-5xl font-bold cursor-pointer hover:bg-gray-700 transition-colors"></div>
                 <div data-index="8" class="cell flex items-center justify-center h-24 bg-gray-800 rounded-lg text-5xl font-bold cursor-pointer hover:bg-gray-700 transition-colors"></div>
             </div>
+
+            <button id="btnRestart" class="hidden w-full py-3 bg-green-600 hover:bg-green-700 rounded-lg font-bold transition-all">
+                JOGAR NOVAMENTE
+            </button>
+
+            <button id="btnBackLobby" class="hidden w-full py-2 bg-gray-600 hover:bg-gray-500 rounded-lg text-sm font-medium">
+                Voltar ao início
+            </button>
 
             <button id="btnLeave" class="w-full py-2 text-gray-400 hover:text-red-400 text-sm font-medium">Sair da Sala</button>
         </div>

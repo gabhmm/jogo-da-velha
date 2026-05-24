@@ -34,7 +34,8 @@ class ConnectionHandler {
    * Roteia a mensagem baseado no campo 'type'.
    */
   route(ws, wss, data) {
-    const { type, payload } = data;
+    const type = String(data?.type || '').trim().toUpperCase();
+    const payload = data?.payload ?? data ?? {};
 
     switch (type) {
       case 'CREATE_ROOM':
@@ -46,8 +47,13 @@ class ConnectionHandler {
       case 'MAKE_MOVE':
         this.handleMakeMove(ws, wss, payload);
         break;
+      case 'REMATCH':
+      case 'RESTART':
+      case 'PLAY_AGAIN':
+        this.handleRematch(ws, wss, payload);
+        break;
       default:
-        this.sendError(ws, 'Tipo de mensagem desconhecido.');
+        this.sendError(ws, `Tipo de mensagem desconhecido: ${type || '(vazio)'}`);
     }
   }
 
@@ -76,6 +82,35 @@ class ConnectionHandler {
     const { symbol, game } = result;
 
     // Notifica ambos os jogadores que o jogo começou
+    this.broadcastToRoom(wss, roomId, (client) => ({
+      type: 'GAME_START',
+      payload: {
+        board: game.board,
+        turn: game.currentTurn,
+        symbol: client.id === game.players['X'] ? 'X' : 'O',
+        players: game.playerNames
+      }
+    }));
+  }
+
+  handleRematch(ws, wss, payload) {
+    const roomId = payload?.roomId || ws.roomId;
+    const game = RoomManager.getGame(roomId);
+
+    if (!game) {
+      return this.sendError(ws, 'Sala não encontrada.');
+    }
+
+    if (!game.isFull()) {
+      return this.sendError(ws, 'Aguardando oponente para reiniciar.');
+    }
+
+    if (game.status !== 'finished') {
+      return this.sendError(ws, 'A partida ainda não terminou.');
+    }
+
+    game.resetForRematch();
+
     this.broadcastToRoom(wss, roomId, (client) => ({
       type: 'GAME_START',
       payload: {

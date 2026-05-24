@@ -54,4 +54,25 @@ describe('GameManager', () => {
     expect(result.winner).toBe('X');
     expect(game.status).toBe('finished');
   });
+
+  test('deve reiniciar partida para rematch', () => {
+    game.addPlayer('p1', 'Player 1');
+    game.addPlayer('p2', 'Player 2');
+    game.makeMove('p1', 0);
+    game.makeMove('p2', 3);
+    game.makeMove('p1', 1);
+    game.makeMove('p2', 4);
+    game.makeMove('p1', 2);
+
+    expect(game.status).toBe('finished');
+
+    game.resetForRematch();
+
+    expect(game.status).toBe('playing');
+    expect(game.board).toEqual(Array(9).fill(null));
+    expect(game.currentTurn).toBe('X');
+    expect(game.winner).toBeNull();
+    expect(game.players['X']).toBe('p1');
+    expect(game.players['O']).toBe('p2');
+  });
 });

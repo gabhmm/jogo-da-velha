@@ -81,6 +81,16 @@ class GameManager {
   isFull() {
     return this.players['X'] && this.players['O'];
   }
+
+  /**
+   * Reinicia o tabuleiro para uma nova partida (mesmos jogadores).
+   */
+  resetForRematch() {
+    this.board = Array(9).fill(null);
+    this.currentTurn = 'X';
+    this.status = 'playing';
+    this.winner = null;
+  }
 }
 
 module.exports = GameManager;
