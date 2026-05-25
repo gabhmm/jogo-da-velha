@@ -1,7 +1,4 @@
-/**
- * ui.js
- * Manipulação do DOM e feedback visual.
- */
+
 class UI {
     constructor() {
         this.lobby = document.getElementById('lobby');

@@ -5,26 +5,18 @@ const path = require('path');
 const { WebSocketServer } = require('ws');
 const ConnectionHandler = require('./modules/ConnectionHandler');
 
-/**
- * server/index.js
- * Ponto de entrada do servidor com suporte a arquivos estáticos.
- */
-
 const PORT = process.env.PORT || 3000;
 const HEARTBEAT_INTERVAL = parseInt(process.env.HEARTBEAT_INTERVAL) || 30000;
 
-// Servidor HTTP para servir o Frontend e o WebSocket
 const server = http.createServer((req, res) => {
-  // Remove query strings da URL (ex: /style.css?v=1 -> /style.css)
+
   const parsedUrl = new URL(req.url, `http://${req.headers.host}`);
   let pathname = parsedUrl.pathname;
 
-  // Traduz a URL para o caminho do arquivo
   let filePath = pathname === '/' 
     ? path.join(__dirname, '../client/index.html') 
     : path.join(__dirname, '../client', pathname);
 
-  // Determina o Content-Type baseado na extensão
   const extname = path.extname(filePath).toLowerCase();
   const mimeTypes = {
     '.html': 'text/html',
@@ -65,7 +57,6 @@ const server = http.createServer((req, res) => {
   });
 });
 
-// Inicializa o servidor WebSocket
 const wss = new WebSocketServer({ server });
 
 let connectionIdCounter = 0;

@@ -1,15 +1,7 @@
 const RoomManager = require('./RoomManager');
 
-/**
- * ConnectionHandler.js
- * Roteia as mensagens WebSocket para as ações correspondentes.
- */
 class ConnectionHandler {
-  /**
-   * Trata uma nova conexão e as mensagens recebidas.
-   * @param {WebSocket} ws Instância do WebSocket.
-   * @param {WebSocketServer} wss Instância do servidor para broadcast.
-   */
+
   handle(ws, wss) {
     const playerId = ws.id;
 
@@ -30,9 +22,6 @@ class ConnectionHandler {
     });
   }
 
-  /**
-   * Roteia a mensagem baseado no campo 'type'.
-   */
   route(ws, wss, data) {
     const type = String(data?.type || '').trim().toUpperCase();
     const payload = data?.payload ?? data ?? {};
@@ -63,7 +52,7 @@ class ConnectionHandler {
       return this.sendError(ws, 'Nome do jogador é obrigatório.');
     }
     const roomId = RoomManager.createRoom(ws.id, playerName);
-    ws.roomId = roomId; // Vincula o socket à sala
+    ws.roomId = roomId; 
     this.send(ws, 'ROOM_CREATED', { roomId });
   }
 
@@ -81,7 +70,6 @@ class ConnectionHandler {
     ws.roomId = roomId;
     const { symbol, game } = result;
 
-    // Notifica ambos os jogadores que o jogo começou
     this.broadcastToRoom(wss, roomId, (client) => ({
       type: 'GAME_START',
       payload: {
@@ -149,9 +137,8 @@ class ConnectionHandler {
     }
   }
 
-  // Auxiliares
   send(ws, type, payload) {
-    if (ws.readyState === 1) { // OPEN
+    if (ws.readyState === 1) { 
       ws.send(JSON.stringify({ type, payload }));
     }
   }
@@ -160,10 +147,6 @@ class ConnectionHandler {
     this.send(ws, 'ERROR', { message });
   }
 
-  /**
-   * Envia uma mensagem para todos os clientes de uma sala específica.
-   * Pode receber um objeto fixo ou uma função que gera o payload por cliente.
-   */
   broadcastToRoom(wss, roomId, messageOrFactory) {
     wss.clients.forEach((client) => {
       if (client.roomId === roomId && client.readyState === 1) {
@@ -176,4 +159,4 @@ class ConnectionHandler {
   }
 }
 
-module.exports = new ConnectionHandler(); // Singleton
+module.exports = new ConnectionHandler(); 

@@ -1,13 +1,9 @@
 const { checkWinner, isValidMove } = require('./GameLogic');
 
-/**
- * GameManager.js
- * Gerencia o estado de uma partida ativa.
- */
 class GameManager {
   constructor() {
     this.board = Array(9).fill(null);
-    this.currentTurn = 'X'; // X sempre começa
+    this.currentTurn = 'X'; 
     this.players = {
       'X': null,
       'O': null
@@ -16,16 +12,10 @@ class GameManager {
       'X': null,
       'O': null
     };
-    this.status = 'waiting'; // waiting, playing, finished
+    this.status = 'waiting'; 
     this.winner = null;
   }
 
-  /**
-   * Associa um jogador a um símbolo.
-   * @param {string} playerId ID único do socket.
-   * @param {string} playerName Nome do jogador.
-   * @returns {string|null} Símbolo atribuído ('X' ou 'O').
-   */
   addPlayer(playerId, playerName) {
     if (!this.players['X']) {
       this.players['X'] = playerId;
@@ -37,15 +27,9 @@ class GameManager {
       this.status = 'playing';
       return 'O';
     }
-    return null; // Partida cheia
+    return null; 
   }
 
-  /**
-   * Executa uma jogada.
-   * @param {string} playerId ID do jogador.
-   * @param {number} position Posição (0-8).
-   * @returns {Object} Resultado da jogada.
-   */
   makeMove(playerId, position) {
     if (this.status !== 'playing') {
       return { success: false, message: 'Partida não iniciada ou já finalizada.' };
@@ -82,9 +66,6 @@ class GameManager {
     return this.players['X'] && this.players['O'];
   }
 
-  /**
-   * Reinicia o tabuleiro para uma nova partida (mesmos jogadores).
-   */
   resetForRematch() {
     this.board = Array(9).fill(null);
     this.currentTurn = 'X';

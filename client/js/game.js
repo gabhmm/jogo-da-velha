@@ -1,7 +1,3 @@
-/**
- * game.js
- * Orquestra a lógica entre o Socket e a UI.
- */
 
 class Game {
     constructor() {
