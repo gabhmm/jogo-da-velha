@@ -48,10 +48,10 @@ class UI {
     updateStatus(message, variant = 'default') {
         this.status.innerText = message;
         const variants = {
-            default: 'bg-gray-700 text-blue-400',
+            default: 'bg-gray-700 text-purple-400',
             error: 'bg-red-900 text-red-200',
-            success: 'bg-green-900 text-green-200',
-            warning: 'bg-yellow-900 text-yellow-200'
+            success: 'bg-indigo-900 text-indigo-200',
+            warning: 'bg-fuchsia-900 text-fuchsia-200'
         };
         this.status.className = `text-center py-2 rounded-lg font-medium ${variants[variant] || variants.default}`;
     }
@@ -61,15 +61,15 @@ class UI {
         const variants = {
             default: 'text-gray-500',
             error: 'text-red-400',
-            success: 'text-green-400'
+            success: 'text-indigo-400'
         };
         this.lobbyMessage.className = `text-center text-sm ${variants[variant] || variants.default}`;
     }
 
     showGameToast(message, variant = 'warning') {
         const variants = {
-            info: 'bg-blue-900 text-blue-200',
-            warning: 'bg-yellow-900 text-yellow-200',
+            info: 'bg-purple-900 text-purple-200',
+            warning: 'bg-fuchsia-900 text-fuchsia-200',
             error: 'bg-red-900 text-red-200'
         };
         this.gameToast.innerText = message;

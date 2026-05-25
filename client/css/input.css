@@ -10,18 +10,18 @@
 }
 
 .cell:empty:hover {
-    background-color: rgba(59, 130, 246, 0.1);
+    background-color: rgba(147, 51, 234, 0.1); /* Purple-600 at 10% */
 }
 
 /* Animação para X */
 .text-x {
-    color: #3b82f6; /* Blue-500 */
+    color: #a855f7; /* Purple-500 */
     animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 /* Animação para O */
 .text-o {
-    color: #10b981; /* Green-500 */
+    color: #ec4899; /* Pink-500 (combinado com roxo fica excelente) */
     animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
@@ -32,13 +32,13 @@
 
 /* Brilho de vitória */
 .winner-cell {
-    background-color: #1e3a8a !important; /* Blue-900 */
-    box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
-    border: 2px solid #3b82f6;
+    background-color: #581c87 !important; /* Purple-900 */
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+    border: 2px solid #a855f7;
 }
 
 /* Feedback de turno */
 .my-turn {
-    border-color: #3b82f6;
-    box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+    border-color: #a855f7;
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
 }
