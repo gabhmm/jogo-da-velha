@@ -49,7 +49,10 @@ Os testes validam:
 
 ---
 
-## Executar teste
+## Executar aplicação
 
 ```bash
-npm test
+npm install
+
+```bash
+npm start
