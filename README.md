@@ -54,5 +54,4 @@ Os testes validam:
 ```bash
 npm install
 
-```bash
 npm start
